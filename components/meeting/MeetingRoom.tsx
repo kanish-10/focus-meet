@@ -17,13 +17,14 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { LayoutList, Users } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import EndCallButton from '@/components/EndCallButton'
 import Loader from '@/components/Loader'
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right';
 
 const MeetingRoom = () => {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const isPersonalRoom = !!searchParams.get('personal')
   const [layout, setLayout] = useState<CallLayoutType>('speaker-left')
@@ -31,6 +32,10 @@ const MeetingRoom = () => {
   const { useCallCallingState } = useCallStateHooks()
   const callingState = useCallCallingState()
 
+  if (callingState === CallingState.LEFT) {
+    router.push('/')
+    return null
+  }
   if (callingState !== CallingState.JOINED) return <Loader />
 
   const CallLayout = () => {
@@ -65,7 +70,7 @@ const MeetingRoom = () => {
             <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
               <LayoutList size={20} className="text-white" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bodrder-dark-1 bg-dark-1 text-white">
+            <DropdownMenuContent className="border-dark-1 bg-dark-1 text-white">
               {['Grid', 'Speaker-Left', 'Speaker-Right'].map((item, index) => (
                 <div className="" key={index}>
                   <DropdownMenuItem
