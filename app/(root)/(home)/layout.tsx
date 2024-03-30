@@ -2,6 +2,15 @@ import React from 'react'
 
 import Sidebar from '@/components/bars/Sidebar'
 import Navbar from '@/components/bars/Navbar'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Focus Meet',
+  description: 'Video calling App',
+  icons: {
+    icon: '/icons/logo.svg'
+  }
+}
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
