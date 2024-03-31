@@ -9,7 +9,7 @@ import { useGetCallById } from '@/hooks/use-get-call-by-id'
 import Loader from '@/components/Loader'
 
 const MeetingPage = ({ params: { id } }: { params: { id: string } }) => {
-  const { user, isLoaded } = useUser()
+  const { isLoaded } = useUser()
   const [isSetupComplete, setIsSetupComplete] = useState(false)
   const { call, isCallLoading } = useGetCallById(id)
 
